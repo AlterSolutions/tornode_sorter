@@ -29,11 +29,8 @@ for node in relay_list:
                     else: # if IPv4
                         ip = ip_port[1:].split(']')[0]
                         port = int(ip_port[1:].split(']')[1][1:])
-                    guard_list.setdefault(port,[]).append(ip)
-
-
-                    #print(ip + "  -  " + str(node["flags"]))
-                    #print(node["guard_probability"] )
+                    #guard_list.setdefault(port,()).append(ip)
+                    guard_list.setdefault(port,set()).add(ip)
 
         # some nodes doesnt have "guard_probability object since they have not been seen the last hour
         except:
@@ -45,8 +42,8 @@ for node in relay_list:
 
 # Creation of the files for guard nodes per ports
 for port in guard_list.keys():
-    filename = "tor_guards_" + str(port)
+    filename = "./guards/ports/tor_guards_" + str(port)
     file = open(filename,'w')
     for ip in guard_list[port]:
-        file.writelines(ip + '\n')
-
+        file.write(ip + '\n')
+    file.close()
