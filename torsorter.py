@@ -73,14 +73,9 @@ def get_guard_per_port(nodes: list) -> dict:
             try:
                 if node["guard_probability"] != 0:
                     for ip_port in node["or_addresses"]:
-                        #If IPv4
-                        if ip_port[0] != '[':
-                            ip = ip_port.split(':')[0]
-                            port = int(ip_port.split(':')[1])
-                        else: # if IPv4
-                            ip = ip_port[1:].split(']')[0]
-                            port = int(ip_port[1:].split(']')[1][1:])
-                        #guard_list.setdefault(port,()).append(ip)
+                        ip = extract_ip_port(ip_port)["IP"]
+                        port = extract_ip_port(ip_port)["PORT"]
+                        
                         guard_list_ports.setdefault(port,set()).add(ip)
             # some nodes doesnt have "guard_probability object since they have not been seen the last hour
             except:
