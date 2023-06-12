@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import requests
 import os
 
@@ -8,7 +9,7 @@ import os
 
 # All definition regardiong node objects : https://metrics.torproject.org/onionoo.html
 url = "https://onionoo.torproject.org"
-args = "details?limit=1000"
+args = "details?limit=100000"
 full_url = url + '/' + args
 
 output_directory = "/srv/tornodes_lists/"
