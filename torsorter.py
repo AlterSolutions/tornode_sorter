@@ -134,9 +134,51 @@ def write_file_guards_per_port(guard_list_port: dict) -> None:
             file.write(ip + '\n')
         file.close()
 
+def write_readme(guard_list_port: dict) -> None:
+    total_entry_count = 0
+    stat_per_port = dict()
+
+
+    #Compute the total number of entry nodes
+    for port in guard_list_port.keys():
+        stat_per_port[port] = len(guard_list_port[port])
+        total_entry_count += len(guard_list_port[port])
+
+    sorted_port_stat = dict(sorted(stat_per_port.items(), key=lambda item: item[1], reverse=True))
+
+    # get the port 80 and 443 number of nodes
+    entry_80_count = len(guard_list_port[80])
+    entry_443_count = len(guard_list_port[443])
+    entry_8080_count = len(guard_list_port[8080])
+
+
+    with open('readme_template.md','r') as readme_template:
+        readme_content = readme_template.read()
+
+    i = 1
+    for key in list(sorted_port_stat.keys())[:10]:
+        current_port = "{{top_"+str(i)+"_port}}"
+        current_port_count = "{{count_top_" + str(i) + "_port}}"
+    
+        readme_content = readme_content.replace(current_port, str(key))
+        readme_content = readme_content.replace(current_port_count, str(sorted_port_stat[key]))
+
+        i+=1
+
+
+    #readme_content = readme_content.replace("{{total_entry_nodes}}", str(total_entry_count))
+    #readme_content = readme_content.replace("{{count_entry_p80}}", str(entry_80_count))
+    #readme_content = readme_content.replace("{{count_entry_p443}}", str(entry_443_count))
+    #readme_content = readme_content.replace("{{count_entry_p8080}}", str(entry_8080_count))
+
+    with open('devREADME.md','w') as file:
+        file.write(readme_content)
+
 #1- write the list of all guards
 write_file_all_guards_ips(get_all_guards_ips(relay_list))
 
 #2 write all the files with list of guards per ip
 write_file_guards_per_port(get_guard_per_port(relay_list))
 
+#3 write the dynamic readme
+write_readme(get_guard_per_port(relay_list))
