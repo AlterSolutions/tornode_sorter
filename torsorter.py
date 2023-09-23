@@ -22,6 +22,8 @@ response_json = dict(raw_response.json())
 
 relay_list = response_json["relays"]
 
+total_node_count = len(relay_list)
+
 def extract_ip_port(ip_port_string: str) -> dict:
     """
     Parse a string representing an IP:PORT couple
@@ -153,12 +155,18 @@ def write_readme(guard_list_port: dict) -> None:
     entry_8080_count = len(guard_list_port[8080])
 
 
-    with open('readme_template.md','r') as readme_template:
+    with open('/srv/tornode_sorter/readme_template.md','r') as readme_template:
         readme_content = readme_template.read()
 
     # Update the last time update
     current_time = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).strftime('%Y-%m-%d %H:%M:%S %Z')
     readme_content = readme_content.replace("{{current_time}}", current_time)
+
+    # Write the total nodes count
+    readme_content = readme_content.replace("{{total_nodes}}", str(total_node_count))
+    
+    # Write the total entry nodes count
+    readme_content = readme_content.replace("{{total_entry_nodes}}", str(total_entry_count))
 
     # Write the TOP 10 port of guard ips
     i = 1
@@ -170,12 +178,6 @@ def write_readme(guard_list_port: dict) -> None:
         readme_content = readme_content.replace(current_port_count, str(sorted_port_stat[key]))
 
         i+=1
-
-
-    #readme_content = readme_content.replace("{{total_entry_nodes}}", str(total_entry_count))
-    #readme_content = readme_content.replace("{{count_entry_p80}}", str(entry_80_count))
-    #readme_content = readme_content.replace("{{count_entry_p443}}", str(entry_443_count))
-    #readme_content = readme_content.replace("{{count_entry_p8080}}", str(entry_8080_count))
 
     readme_path = output_directory + "README.md"
     with open(readme_path,'w') as file:

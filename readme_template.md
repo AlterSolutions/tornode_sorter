@@ -21,18 +21,18 @@ Last update time : {{current_time}}
 - **Total Number of Nodes**: {{total_nodes}}
 - **Total of Entry Nodes**: {{total_entry_nodes}}
 
-*TOP 10 PORTS USED FOR TOR ENTRY NODES*
+**TOP 10 PORTS USED FOR TOR ENTRY NODES**
 
-| Port | Number of Nodes |
+| **Port** | **Number of Nodes** |
 |------|-----------------|
-| {{top_1_port}}   | {{count_top_1_port}}  |
-| {{top_2_port}}   | {{count_top_2_port}}  |
-| {{top_3_port}}   | {{count_top_3_port}}  |
-| {{top_4_port}}   | {{count_top_4_port}}  |
-| {{top_5_port}}   | {{count_top_5_port}}  |
-| {{top_6_port}}   | {{count_top_6_port}}  |
-| {{top_7_port}}   | {{count_top_7_port}}  |
-| {{top_8_port}}   | {{count_top_8_port}}  |
-| {{top_9_port}}   | {{count_top_9_port}}  |
-| {{top_10_port}}   | {{count_top_10_port}}  |
+| **{{top_1_port}}**   | {{count_top_1_port}}  |
+| **{{top_2_port}}**   | {{count_top_2_port}}  |
+| **{{top_3_port}}**   | {{count_top_3_port}}  |
+| **{{top_4_port}}**   | {{count_top_4_port}}  |
+| **{{top_5_port}}**   | {{count_top_5_port}}  |
+| **{{top_6_port}}**   | {{count_top_6_port}}  |
+| **{{top_7_port}}**   | {{count_top_7_port}}  |
+| **{{top_8_port}}**   | {{count_top_8_port}}  |
+| **{{top_9_port}}**   | {{count_top_9_port}}  |
+| **{{top_10_port}}**   | {{count_top_10_port}}  |
 
