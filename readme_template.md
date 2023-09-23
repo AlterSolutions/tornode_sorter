@@ -16,6 +16,8 @@ This repository provides updated lists of IP addresses associated with Tor relay
 
 ## Current Statistics
 
+Last update time : {{current_time}}
+
 - **Total Number of Nodes**: {{total_nodes}}
 - **Total of Entry Nodes**: {{total_entry_nodes}}
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import requests
 import os
+import datetime
 
 
 ####################################
@@ -155,6 +156,11 @@ def write_readme(guard_list_port: dict) -> None:
     with open('readme_template.md','r') as readme_template:
         readme_content = readme_template.read()
 
+    # Update the last time update
+    current_time = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).strftime('%Y-%m-%d %H:%M:%S %Z')
+    readme_content = readme_content.replace("{{current_time}}", current_time)
+
+    # Write the TOP 10 port of guard ips
     i = 1
     for key in list(sorted_port_stat.keys())[:10]:
         current_port = "{{top_"+str(i)+"_port}}"
@@ -171,7 +177,8 @@ def write_readme(guard_list_port: dict) -> None:
     #readme_content = readme_content.replace("{{count_entry_p443}}", str(entry_443_count))
     #readme_content = readme_content.replace("{{count_entry_p8080}}", str(entry_8080_count))
 
-    with open('devREADME.md','w') as file:
+    readme_path = output_directory + "README.md"
+    with open(readme_path,'w') as file:
         file.write(readme_content)
 
 #1- write the list of all guards
